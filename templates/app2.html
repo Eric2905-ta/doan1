@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Streaming and Alert Messages</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #container {
+            display: flex;
+            flex: 1;
+            height: 100%;
+        }
+
+        #video-info-container {
+            display: flex;
+            flex-direction: column;
+            flex: 65%;
+        }
+
+        #video-container {
+            position: relative;
+            height: 100%;
+        }
+
+        #info-container {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            margin-bottom: 15px;
+            border-radius: 25px;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+
+        #info-container h2 {
+            margin-top: 0;
+        }
+
+        #info-container table {
+            margin: 0 auto;
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #info-container th,
+        #info-container td {
+            padding: 8px;
+            text-align: center;
+            border: none;
+        }
+
+        #alert-container {
+            flex: 35%;
+            background-color: #f2f2f2;
+            padding: 20px;
+            overflow-y: scroll;
+        }
+
+        #alert-wrapper {
+            max-height: calc(100vh - 40px); /* 40px là tổng kích thước padding của #alert-container */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="video-info-container">
+            <div id="video-container">
+                <!-- Embed your video player here -->
+                <!-- Replace "your_video_source" with your actual video source URL -->
+                <video width="100%" height="100%" controls>
+                    <source src="your_video_source" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+            <div id="info-container">
+                <h2>Person in Roid</h2>
+                <table id="person-table">
+                    <tr>
+                        <th>RoiA</th>
+                        <th>RoiB</th>
+                        <th>RoiC</th>
+                        <th>RoiD</th>
+                    </tr>
+                    <tr>
+                        <td>{{ dataA }}</td>
+                        <td>{{ dataB }}</td>
+                        <td>{{ dataC }}</td>
+                        <td>{{ dataD }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="alert-container">
+            <h2>Alert Messages</h2>
+            <div id="alert-wrapper">
+                <div id="alert-frame">
+                    {% for message in messages %}
+                    <div class="alert">
+                        <span>{{ message }}</span>
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

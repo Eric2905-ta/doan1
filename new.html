@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        #container {
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #video-stream {
+            flex-basis: 70%;
+            padding: 20px;
+        }
+
+        #todo-list {
+            flex-basis: 30%;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        #video-player {
+            width: 100%;
+            height: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:hover {
+            background-color: #f2f2f2;
+        }
+
+        .todo-item {
+            flex-grow: 1;
+        }
+
+        .delete-button,
+        .edit-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .edit-button {
+            background-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="video-stream">
+            <h2>Video Stream</h2>
+            <video id="video-player" controls autoplay></video>
+        </div>
+        <div id="todo-list">
+            <h1>Todo List</h1>
+            <input type="text" id="todo-input" placeholder="Enter a task">
+            <button onclick="addTodo()">Add Task</button>
+            <ul id="todo-items"></ul>
+        </div>
+    </div>
+
+    <script>
+        var todos = [];
+
+        function renderTodoList() {
+            var todoItems = document.getElementById("todo-items");
+            todoItems.innerHTML = "";
+
+            for (var i = 0; i < todos.length; i++) {
+                var todo = todos[i];
+                var li = document.createElement
+                ("li");
+var span = document.createElement("span");
+span.className = "todo-item";
+span.appendChild(document.createTextNode(todo));
+li.appendChild(span);
+var editButton = document.createElement("button");
+            editButton.className = "edit-button";
+            editButton.innerHTML = "Edit";
+            editButton.setAttribute("onclick", "editTodo(" + i + ")");
+            li.appendChild(editButton);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.className = "delete-button";
+            deleteButton.innerHTML = "Delete";
+            deleteButton.setAttribute("onclick", "deleteTodo(" + i + ")");
+            li.appendChild(deleteButton);
+
+            todoItems.appendChild(li);
+        }
+    }
+
+    function addTodo() {
+        var input = document.getElementById("todo-input");
+        var item = input.value.trim();
+        if (item !== "") {
+            todos.push(item);
+            input.value = "";
+            renderTodoList();
+        }
+    }
+
+    function editTodo(index) {
+        var newTodo = prompt("Enter new task", todos[index]);
+        if (newTodo !== null && newTodo.trim() !== "") {
+            todos[index] = newTodo.trim();
+            renderTodoList();
+        }
+    }
+
+    function deleteTodo(index) {
+        todos.splice(index, 1);
+        renderTodoList();
+    }
+
+    var videoPlayer = document.getElementById("video-player");
+    videoPlayer.src = "rtsp://example.com/stream"; // Replace with your actual RTSP stream URL
+</script>
+</body>
+</html>
